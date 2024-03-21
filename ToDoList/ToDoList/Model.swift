@@ -22,16 +22,11 @@ var items: [[String: Any]] {
             return []
         }
     }
-    
 }
 
 func addItem(nameItem: String, isComplited: Bool = false) {
     items.append(["Name": nameItem, "isComplited": isComplited])
-    
-    
 }
-
-
 
 func removeItem(at index: Int) {
     items.remove(at: index)
@@ -43,3 +38,4 @@ func changeStatus(at item: Int) -> Bool {
     return items[item] ["isComplited"] as! Bool
     
 }
+

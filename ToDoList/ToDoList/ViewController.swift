@@ -17,6 +17,15 @@ class ViewController: UIViewController {
         return tableView
     }()
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            removeItem(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "To Do List"
@@ -29,6 +38,7 @@ class ViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .edit, target: self, action: #selector(addEditBtn))
+       
     }
     
     
@@ -36,26 +46,6 @@ class ViewController: UIViewController {
         super.viewDidLayoutSubviews ()
         tableView.frame = view.bounds
         tableView.backgroundColor = .systemTeal
-        
-    }
-    
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            removeItem(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            
-        }
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if changeStatus(at: indexPath.row) == true {
-            tableView.cellForRow(at: indexPath)?.imageView?.image = .check
-        } else {
-            tableView.cellForRow(at: indexPath)?.imageView?.image = nil
-        }
         
     }
 
@@ -70,11 +60,9 @@ class ViewController: UIViewController {
         let alertController = UIAlertController(title: "Create new item", message: nil, preferredStyle: .alert)
             alertController.addTextField { textField in
                 textField.placeholder = "New item name"
-                
             }
-            
-            
-            let alertAction1 = UIAlertAction(title: "Cancel", style: .default)
+        
+            let alertAction1 = UIAlertAction(title: "Cansel", style: .default)
             { alert in
             }
             let alertAction2 = UIAlertAction(title: "Create", style: .cancel)
@@ -89,6 +77,7 @@ class ViewController: UIViewController {
 
             present(alertController, animated: true, completion: nil)
         }
+    
 }
   //MARK: - Extension
         
@@ -101,7 +90,9 @@ class ViewController: UIViewController {
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
+      
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let currentItem = items[indexPath.row]
         cell.textLabel?.text = currentItem["Name"] as? String
@@ -109,11 +100,12 @@ class ViewController: UIViewController {
         if (currentItem["isComleted"] as? Bool) == true {
             cell.imageView?.image = .check
         } else {
-            cell.imageView?.image = nil
+            cell.imageView?.image = .uncheck
         }
         
         return cell
     }
+    
 }
 
 func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -131,7 +123,8 @@ func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.Ed
     if changeStatus(at: indexPath.row) == true {
         tableView.cellForRow(at: indexPath)?.imageView?.image = .check
     } else {
-        tableView.cellForRow(at: indexPath)?.imageView?.image = nil
+        tableView.cellForRow(at: indexPath)?.imageView?.image = .uncheck
     }
     
 }
+
