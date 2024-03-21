@@ -45,7 +45,7 @@ final class ViewController: UIViewController {
     override func viewDidLayoutSubviews () {
         super.viewDidLayoutSubviews ()
         tableView.frame = view.bounds
-        tableView.backgroundColor = AppColors.yellow
+        tableView.backgroundColor = .systemTeal
         
     }
     
@@ -96,7 +96,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.imageView?.image = nil
         }
-        cell.backgroundColor = AppColors.yellow
+        cell.backgroundColor = .systemTeal
         
         return cell
     }
