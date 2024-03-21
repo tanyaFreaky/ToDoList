@@ -28,12 +28,13 @@ final class ViewController: UIViewController {
         title = Constants.title
         view.addSubview(tableView)
         tableView.dataSource = self
-        tableView.delegate = self 
+        tableView.delegate = self
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
-            action: #selector (addItemsBtn)
-        )
+            action: #selector (addItemsBtn))
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .edit,
             target: self,
@@ -44,7 +45,8 @@ final class ViewController: UIViewController {
     override func viewDidLayoutSubviews () {
         super.viewDidLayoutSubviews ()
         tableView.frame = view.bounds
-        tableView.backgroundColor = .systemTeal
+        tableView.backgroundColor = AppColors.yellow
+        
     }
     
     // MARK: - Button Actions
@@ -94,6 +96,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.imageView?.image = nil
         }
+        cell.backgroundColor = AppColors.yellow
         
         return cell
     }
